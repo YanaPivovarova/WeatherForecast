@@ -1,0 +1,33 @@
+$columns: 3, 4, 6, 8, 12;
+$screens: (
+    all: null,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200
+);
+$column-size: 100 / 12;
+
+@mixin col-x-list {
+  @each $screen, $size in $screens {
+    @if $screen == all {
+      @each $column in $columns {
+        .grid-col-#{$column} {
+          padding: 0 $grid-hor-padding;
+          max-width: #{$column-size * $column + 0%};
+          flex: 0 0 #{$column-size * $column + 0%};
+        }
+      }
+    } @else {
+      @media (min-width: #{$size + 0px}) {
+        @each $column in $columns {
+          .grid-col-#{$screen}-#{$column} {
+            padding: 0 $grid-hor-padding;
+            max-width: #{$column-size * $column + 0%};
+            flex: 0 0 #{$column-size * $column + 0%};
+          }
+        }
+      }
+    }
+  }
+}

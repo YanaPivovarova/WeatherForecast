@@ -1,0 +1,35 @@
+// Grid Container
+.container {
+  width: 100%;
+  margin: 0 auto;
+
+  @media (max-width: 575px) {
+    max-width: 100%;
+    padding: 0 15px;
+    width: 100%;
+  }
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+}
+
+.grid-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 (-$grid-hor-padding);
+
+  &_jc_center {
+    justify-content: center;
+  }
+}
+
+@include col-x-list;
