@@ -12,4 +12,5 @@ After you have cloned the repository run the following commands in the root of t
 - npm start - will run project locally on **localhost:8081**
 - npm run build - will build project bundles to **./dist** folder
 
+## Features
 Location of weather forecast can be passed by query string: **?city=London,Minsk**
