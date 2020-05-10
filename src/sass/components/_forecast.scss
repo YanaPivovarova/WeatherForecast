@@ -1,16 +1,59 @@
-$hor-padding: 5px;
+$cardPadding: 5px;
 $borderRadius: 10px;
 $iconSize: 170px;
+$inputHeight: 40px;
+$inputBorderRadius: 5px;
 
 .forecast {
-  display: flex;
-  margin: 0 -$hor-padding;
+
+  &__search {
+    margin: 50px 0 0;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    justify-content: center;
+
+    input {
+      width: 300px;
+      height: $inputHeight;
+      border: 0;
+      border-top-left-radius: $inputBorderRadius;
+      border-bottom-left-radius: $inputBorderRadius;
+      background: #f2f2f2;
+      padding: 5px 10px;
+    }
+
+    button {
+      height: $inputHeight;
+      border: 0;
+      border-top-right-radius: $inputBorderRadius;
+      border-bottom-right-radius: $inputBorderRadius;
+      background-image: linear-gradient(#aaa, #777);
+      color: #fff;
+      padding: 0 25px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+  }
+
+  &__container {
+    display: flex;
+    margin: 30px (-$cardPadding);
+    flex-wrap: wrap;
+    @include bp-max-576 {
+      margin: 0;
+    }
+  }
 
   &__inner {
     flex: 1;
-    height: 300px;
-    padding: 20px $hor-padding;
-
+    height: 320px;
+    padding: $cardPadding;
+    @include bp-max-768 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
   }
 
   &__card {
@@ -42,7 +85,7 @@ $iconSize: 170px;
       background-size: $iconSize;
       bottom: 0;
       left: 0;
-      transform: translate(-22%, 30%);
+      transform: translate(-22%, 25%);
       opacity: .3;
     }
 
@@ -133,7 +176,7 @@ $iconSize: 170px;
   }
 
   &__image {
-    margin: 20px 0;
+    margin: 20px 0 10px;
     width: 40px;
     height: 40px;
     background-repeat: no-repeat;
@@ -150,8 +193,8 @@ $iconSize: 170px;
   }
 
   &__celsius {
-    margin: 20px 0;
-    font-size: 35px;
+    margin: 15px 0;
+    font-size: 36px;
     font-weight: 700;
     font-family: 'Roboto Condensed', 'sans-serif';
 
@@ -165,5 +208,12 @@ $iconSize: 170px;
   &__fahrenheit {
     font-size: 10px;
     opacity: .7;
+  }
+
+  &__error {
+    margin: 50px 0;
+    text-align: center;
+    text-transform: capitalize;
+    color: #ff5123;
   }
 }

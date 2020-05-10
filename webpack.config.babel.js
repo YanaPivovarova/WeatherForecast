@@ -1,6 +1,4 @@
-import webpack from 'webpack';
 import path from 'path';
-import glob from 'glob';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -13,7 +11,6 @@ const DEV_MODE = 'development';
 const distPath = './dist';
 
 const pathsConfig = {
-    src: path.join(__dirname, 'src'),
     jsEntry: path.join(__dirname, 'src', 'js'),
     assets: path.join(__dirname, 'src', 'assets'),
     dist: path.resolve(distPath),
@@ -83,14 +80,7 @@ module.exports = env => {
                     from: path.join(pathsConfig.assets, 'images'),
                     to: path.join(pathsConfig.dist, 'images')
                 }
-            ]),
-            new webpack.ProvidePlugin({
-                $: 'jquery',
-                jQuery: 'jquery',
-                jquery: 'jquery',
-                'window.jQuery': 'jquery',
-                'window.$': 'jquery',
-            })
+            ])
         ],
         devServer: {
             contentBase: path.resolve(__dirname),

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="grid-row grid-row_jc_center">
+        <div class="grid-col-12 grid-col-lg-8">
+            <div class="forecast">
+                <div class="forecast__search">
+                    <div class="forecast__input-wrapper">
+                        <input type="text" js-inputSearch>
+                        <button type="button" js-buttonSearch>Find</button>
+                    </div>
+                </div>
+                <div class="forecast__error">{{errorMessage}}</div>
+                <div class="forecast__container">
+                    {{#each forecastList}}
+                        <div class="forecast__inner">
+                            <div class='forecast__card {{getClass weather}}'>
+                                <div class="forecast__date">
+                                    {{date dt_txt}}
+                                </div>
+                                <div class="forecast__image"></div>
+                                <div class="forecast__description">
+                                    {{#each weather}}
+                                        {{#if @first}}
+                                            {{description}}
+                                        {{/if}}
+                                    {{/each}}
+                                </div>
+                                <div class="forecast__celsius">
+                                    {{trunc main.temp}}<span>&deg;C</span>
+                                </div>
+                                <div class="forecast__fahrenheit">
+                                        {{trunc (fahrenheit main.temp)}}&deg;F
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

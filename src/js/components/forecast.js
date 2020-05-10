@@ -1,29 +1,58 @@
-import template from '../../templates/weather.hbs';
+import template from '../../templates/forecast.hbs';
+import parseUrl from '../utils/parseUrl';
 
-export default class Forecast {
-    constructor() {
+class Forecast {
+    constructor(city, $element) {
+        this.$element = $element;
         this.apiUrl = 'http://api.openweathermap.org/data/2.5/forecast';
         this.appId = 'a1893053fd0088472e3911e004f32afc';
-        this.city = 'London';
+        this.city = city;
         this.daysAmount = 4;
         this.periodsAmount = 8;
         this.data = {};
-
+        this.errorMessage = "";
         this.requestData();
     }
 
-    requestData() {
-        const url = `${this.apiUrl}?q=${this.city}&appid=${this.appId}&units=metric`;
+    handleSearch() {
+        const $inputButton = this.$element.querySelector('[js-buttonSearch]');
+        const $inputSearch = this.$element.querySelector('[js-inputSearch]');
 
-        let promise = fetch(url).then(response => response.json());
+        $inputButton.addEventListener('click', () => {
+            this.search();
+        }, false);
 
-        promise.then((response) => {
-            this.data = response;
+        $inputSearch.addEventListener('keypress', (e) => {
+            if (e.keyCode === 13) {
+                this.search();
+            }
+        }, false);
+    }
 
-            const forecastList = this.getForecastList();
-            this.createHTML(forecastList);
+    search() {
+        const $inputSearch = this.$element.querySelector('[js-inputSearch]');
+
+        if ($inputSearch.value) {
+            this.city = $inputSearch.value;
+            this.requestData();
+        }
+    }
+
+    requestData(city = this.city) {
+        const url = `${this.apiUrl}?q=${city}&appid=${this.appId}&units=metric`;
+
+        fetch(url).then(response => response.json()).then((response) => {
+            if (!response.message) {
+                this.data = response;
+                this.errorMessage = '';
+
+                const forecastList = this.getForecastList();
+                this.createHTML(forecastList);
+            } else {
+                this.errorMessage = 'Sorry, ' + response.message;
+                this.createHTML([]);
+            }
         });
-
     }
 
     getForecastList() {
@@ -33,8 +62,28 @@ export default class Forecast {
     }
 
     createHTML(forecastList) {
-        const container = document.getElementById("weather-template");
-
-        container.innerHTML = template({ forecastList });
+        this.$element.innerHTML = template({ forecastList: forecastList, errorMessage: this.errorMessage });
+        this.handleSearch();
     }
 }
+
+function init() {
+    const queryParams = parseUrl();
+    const $container = document.getElementById("weather-template");
+
+    if (queryParams && queryParams.city) {
+        queryParams.city.forEach(c => {
+            const $section = document.createElement('section');
+
+            $container.appendChild($section);
+            new Forecast(c, $section);
+        });
+    } else {
+        const $section = document.createElement('section');
+
+        $container.appendChild($section);
+        new Forecast('London', $section);
+    }
+}
+
+init();

@@ -31,3 +31,15 @@ $column-size: 100 / 12;
     }
   }
 }
+
+@mixin bp-max-576() {
+  @media (max-width: 576px) {
+    @content;
+  }
+}
+
+@mixin bp-max-768() {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
