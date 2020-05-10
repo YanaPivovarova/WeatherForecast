@@ -5,7 +5,6 @@ $inputHeight: 40px;
 $inputBorderRadius: 5px;
 
 .forecast {
-
   &__search {
     margin: 50px 0 0;
   }
@@ -22,6 +21,7 @@ $inputBorderRadius: 5px;
       border-bottom-left-radius: $inputBorderRadius;
       background: #f2f2f2;
       padding: 5px 10px;
+      font-family: 'Roboto', sans-serif;
     }
 
     button {
@@ -34,6 +34,11 @@ $inputBorderRadius: 5px;
       padding: 0 25px;
       font-size: 10px;
       cursor: pointer;
+      transition: background-image 0.2s ease-in;
+
+      &:hover {
+        background-image: linear-gradient(#bbb, #888);
+      }
     }
   }
 
